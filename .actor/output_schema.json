@@ -1,0 +1,14 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Shopify Fast Catalog Output Results",
+  "description": "Products, variants, pricing, and inventory extracted from the public Shopify store.",
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string",
+      "title": "Scraped Products Dataset",
+      "description": "Dataset containing all extracted Shopify products.",
+      "template": "{{links.defaultDatasetId}}"
+    }
+  }
+}
