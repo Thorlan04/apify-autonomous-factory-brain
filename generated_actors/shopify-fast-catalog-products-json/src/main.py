@@ -7,7 +7,7 @@ from datetime import datetime
 
 # --- Configuration & Constants ---
 DEFAULT_INPUT = {
-    "storeUrl": "https://shop.fender.com",
+    "storeUrl": "https://colourpop.com",
     "maxPages": 2,
     "limitPerPage": 50
 }
@@ -21,6 +21,7 @@ APIFY_LOCAL_KEY_VALUE_STORE_DIR = f"{APIFY_LOCAL_STORAGE_DIR}/key_value_stores/d
 def get_input():
     """
     Attempts to load input from APOFY_INPUT_VALUE env var,
+    then from Apify Cloud Key-Value Store,
     then from ./storage/key_value_stores/default/INPUT.json,
     and finally falls back to DEFAULT_INPUT.
     """
@@ -34,6 +35,20 @@ def get_input():
             print(f"[{datetime.now().isoformat()}] INFO: Input loaded from APIFY_INPUT_VALUE environment variable.")
         except json.JSONDecodeError as e:
             print(f"[{datetime.now().isoformat()}] ERROR: Could not parse APIFY_INPUT_VALUE as JSON: {e}")
+
+    # 1b. Try from Apify Cloud Key-Value Store API
+    kvs_id = os.getenv("APIFY_DEFAULT_KEY_VALUE_STORE_ID")
+    if input_data is None and kvs_id:
+        try:
+            token = os.getenv("APIFY_TOKEN")
+            url = f"https://api.apify.com/v2/key-value-stores/{kvs_id}/records/INPUT"
+            headers = {"Authorization": f"Bearer {token}"} if token else {}
+            res = requests.get(url, headers=headers, timeout=10)
+            if res.status_code == 200 and res.content:
+                input_data = res.json()
+                print(f"[{datetime.now().isoformat()}] INFO: Input loaded from Apify Cloud Key-Value Store.")
+        except Exception as e:
+            print(f"[{datetime.now().isoformat()}] WARNING: Could not fetch input from KVS API: {e}")
 
     # 2. Try from local INPUT.json file if not already loaded
     if input_data is None:
