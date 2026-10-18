@@ -6,6 +6,11 @@
   "version": "0.1",
   "dockerfile": "./Dockerfile",
   "restartOnError": false,
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
   "meta": {
     "categories": [
       "E_COMMERCE"

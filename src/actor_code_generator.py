@@ -82,6 +82,11 @@ class ActorCodeGenerator:
             "version": "0.1",
             "dockerfile": "./Dockerfile",
             "restartOnError": False,
+            "input": "./input_schema.json",
+            "output": "./output_schema.json",
+            "storages": {
+                "dataset": "./dataset_schema.json"
+            },
             "meta": {
                 "categories": [idea.category.upper().replace("-", "_")]
             }
@@ -94,32 +99,51 @@ class ActorCodeGenerator:
         with open(actor_dir / ".actor" / "input_schema.json", "w", encoding="utf-8") as f:
             json.dump(input_schema, f, indent=2, ensure_ascii=False)
 
-        # 3. Génération de .actor/dataset_schema.json
+        # 3. Génération de .actor/output_schema.json (Requis par l'Apify Store)
+        output_schema = {
+            "actorOutputSchemaVersion": 1,
+            "title": f"Output Schema for {idea.name}",
+            "description": "Defines the output produced by the Actor.",
+            "type": "object",
+            "properties": {
+                "resultsDatasetUrl": {
+                    "type": "string",
+                    "title": "Results dataset",
+                    "description": "URL to the dataset containing the scraped items.",
+                    "resourceType": "dataset"
+                }
+            }
+        }
+        with open(actor_dir / ".actor" / "output_schema.json", "w", encoding="utf-8") as f:
+            json.dump(output_schema, f, indent=2, ensure_ascii=False)
+
+        # 4. Génération de .actor/dataset_schema.json
         dataset_schema = {
             "actorSpecification": 1,
             "fields": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
                 "type": "object",
                 "properties": {
-                    "scrapedAt": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "Horodatage ISO de l'extraction"
+                    "id": {
+                        "type": "integer",
+                        "title": "Item ID"
                     },
-                    "status": {
+                    "title": {
                         "type": "string",
-                        "description": "Statut de l'opération (SUCCESS, WARNING, ERROR)"
+                        "title": "Item Title"
                     },
                     "data": {
                         "type": "object",
-                        "description": "Données extraites déterministes"
+                        "title": "Structured Data"
                     }
-                }
+                },
+                "additionalProperties": True
             },
             "views": {
                 "overview": {
-                    "title": "Aperçu des Données",
+                    "title": "Overview",
                     "transformation": {
-                        "fields": ["scrapedAt", "status", "data"]
+                        "fields": ["title", "id", "data"]
                     }
                 }
             }

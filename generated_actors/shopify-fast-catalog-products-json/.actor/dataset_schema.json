@@ -1,31 +1,53 @@
 {
   "actorSpecification": 1,
   "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "scrapedAt": {
-        "type": "string",
-        "format": "date-time",
-        "description": "Horodatage ISO de l'extraction"
+      "id": {
+        "type": "integer",
+        "title": "Product ID"
       },
-      "status": {
+      "title": {
         "type": "string",
-        "description": "Statut de l'opération (SUCCESS, WARNING, ERROR)"
+        "title": "Product Title"
       },
-      "data": {
-        "type": "object",
-        "description": "Données extraites déterministes"
+      "handle": {
+        "type": "string",
+        "title": "Product Handle"
+      },
+      "vendor": {
+        "type": "string",
+        "title": "Vendor"
+      },
+      "product_type": {
+        "type": "string",
+        "title": "Product Type"
+      },
+      "created_at": {
+        "type": "string",
+        "title": "Created At"
+      },
+      "variants": {
+        "type": "array",
+        "title": "Variants"
+      },
+      "images": {
+        "type": "array",
+        "title": "Images"
       }
-    }
+    },
+    "additionalProperties": true
   },
   "views": {
     "overview": {
-      "title": "Aperçu des Données",
+      "title": "Overview",
       "transformation": {
         "fields": [
-          "scrapedAt",
-          "status",
-          "data"
+          "title",
+          "vendor",
+          "product_type",
+          "id"
         ]
       }
     }
