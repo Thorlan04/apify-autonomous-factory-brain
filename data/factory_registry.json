@@ -1,0 +1,450 @@
+{
+  "factory_metadata": {
+    "version": "1.0.0",
+    "name": "apify-autonomous-factory-brain",
+    "owner": "Autonomous Factory Brain",
+    "monthly_free_tier_budget_usd": 5.0,
+    "max_monthly_spend_target_usd": 0.80,
+    "max_weekly_creations": 1,
+    "max_weekly_maintenances": 1,
+    "last_cycle_timestamp": null,
+    "total_actors_deployed": 0
+  },
+  "deployed_actors": [],
+  "ideas_backlog": [
+    {
+      "id": "idea-01",
+      "slug": "shopify-fast-catalog-products-json",
+      "name": "Shopify Fast Catalog & Inventory Monitor",
+      "category": "e-commerce",
+      "protocol": "HTTP REST /products.json",
+      "description": "Scrape l'intégralité du catalogue public, variantes de prix, inventaires et SKU d'une boutique Shopify via le endpoint natif sans headless browser.",
+      "target_users": "E-commerçants, outils de veille tarifaire, agences Make/n8n",
+      "default_input": {
+        "storeUrl": "https://shop.fender.com",
+        "maxPages": 2,
+        "limitPerPage": 50
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-02",
+      "slug": "website-llms-txt-generator",
+      "name": "Website to llms.txt & Markdown RAG Converter",
+      "category": "ai-llm-data-prep",
+      "protocol": "HTTP GET / Clean Markdown Parsing",
+      "description": "Convertit n'importe quel site ou documentation en fichier standardisé llms.txt et llms-full.txt optimisé pour injection dans LLMs et RAG.",
+      "target_users": "Développeurs IA, architectes RAG, agents Cursor/Claude/Gemini",
+      "default_input": {
+        "startUrl": "https://fastapi.tiangolo.com",
+        "maxDepth": 1,
+        "maxPages": 10
+      },
+      "pricing_suggestion_usd": 29.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-03",
+      "slug": "european-accessibility-act-wcag-auditor",
+      "name": "European Accessibility Act (EAA) WCAG Auditor",
+      "category": "european-compliance",
+      "protocol": "DOM Inspection & WCAG Rules",
+      "description": "Vérifie les critères WCAG 2.1 AA obligatoires de l'European Accessibility Act 2025 (contrastes, alt text, ARIA, hiérarchie titres).",
+      "target_users": "Responsables conformité, agences web, juristes du numérique",
+      "default_input": {
+        "targetUrl": "https://news.ycombinator.com",
+        "checkAria": true,
+        "checkContrast": true
+      },
+      "pricing_suggestion_usd": 39.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-04",
+      "slug": "email-security-spf-dkim-dmarc-checker",
+      "name": "B2B Domain SPF DKIM DMARC MX Security Auditor",
+      "category": "infrastructure-security",
+      "protocol": "DNS over HTTPS (DoH)",
+      "description": "Analyse en profondeur les enregistrements DNS d'un domaine d'entreprise pour vérifier la délivrabilité email, l'alignement DMARC et SPF.",
+      "target_users": "Équipes RevOps, agences Cold Email, RSSI",
+      "default_input": {
+        "domain": "google.com"
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-05",
+      "slug": "greenhouse-jobs-public-api-scraper",
+      "name": "Greenhouse ATS Public Jobs & Department Extractor",
+      "category": "recruitment-ats",
+      "protocol": "Greenhouse Public Boards JSON API",
+      "description": "Extrait tous les postes ouverts, départements, salaires et descriptions via l'API publique de boards.greenhouse.io sans proxy.",
+      "target_users": "Recruteurs, chasseurs de têtes, agrégateurs d'emplois tech",
+      "default_input": {
+        "boardToken": "github"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-06",
+      "slug": "lever-co-ats-jobs-extractor",
+      "name": "Lever ATS Public Careers & Team Postings Extractor",
+      "category": "recruitment-ats",
+      "protocol": "Lever Public JSON API",
+      "description": "Interroge l'endpoint public API de jobs.lever.co pour récupérer les annonces de recrutement structurées.",
+      "target_users": "Outils de veille RH, agences d'intérim, plateformes d'emploi",
+      "default_input": {
+        "companySlug": "netflix"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-07",
+      "slug": "ssl-tls-certificate-expiry-cipher-monitor",
+      "name": "SSL TLS Certificate Expiry & TLS Cipher Strength Monitor",
+      "category": "infrastructure-security",
+      "protocol": "Python SSL Socket Handshake",
+      "description": "Audit la validité, la date d'expiration exacte, l'autorité de certification (CA) et les algorithmes de chiffrement TLS d'un serveur.",
+      "target_users": "Ingénieurs DevOps, infogérants, équipes SRE",
+      "default_input": {
+        "hostname": "github.com",
+        "port": 443
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-08",
+      "slug": "gdpr-cookie-consent-scanner",
+      "name": "GDPR Cookie & Tracker Compliance Scanner",
+      "category": "european-compliance",
+      "protocol": "HTTP Headers & Set-Cookie / Script Inspection",
+      "description": "Détecte si un site dépose des cookies tiers ou des balises de tracking (GA4, Meta Pixel) avant le consentement explicite de l'utilisateur.",
+      "target_users": "DPO (Data Protection Officers), consultants RGPD, agences web",
+      "default_input": {
+        "url": "https://wikipedia.org"
+      },
+      "pricing_suggestion_usd": 35.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-09",
+      "slug": "sitemap-xml-deep-health-auditor",
+      "name": "Sitemap XML Deep Health & Canonical Status Checker",
+      "category": "seo-tech",
+      "protocol": "XML Sitemap Parsing & Fast HEAD Requests",
+      "description": "Analyse récursivement les sitemaps et sitemap-index d'un domaine pour vérifier les codes HTTP, redirections, balises canoniques et dates de màj.",
+      "target_users": "Consultants SEO, créateurs de sites e-commerce, webmasters",
+      "default_input": {
+        "sitemapUrl": "https://www.python.org/sitemap.xml",
+        "maxUrlsToCheck": 50
+      },
+      "pricing_suggestion_usd": 20.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-10",
+      "slug": "schema-org-jsonld-rich-snippets-validator",
+      "name": "Schema.org JSON-LD & Microdata Semantic Extractor",
+      "category": "seo-tech",
+      "protocol": "HTML Parsing / JSON-LD Extraction",
+      "description": "Extrait et valide toutes les données structurées JSON-LD (Product, Organization, Event, FAQPage, Article) pour les intégrations IA.",
+      "target_users": "Spécialistes SEO technique, créateurs de Knowledge Graphs",
+      "default_input": {
+        "pageUrl": "https://stripe.com"
+      },
+      "pricing_suggestion_usd": 20.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-11",
+      "slug": "http-security-headers-csp-auditor",
+      "name": "HTTP Security Headers & Strict CSP Inspector",
+      "category": "infrastructure-security",
+      "protocol": "HTTP Response Headers Analysis",
+      "description": "Évalue la posture de sécurité d'un site en vérifiant HSTS, Content-Security-Policy (CSP), X-Frame-Options, Permissions-Policy et Referrer-Policy.",
+      "target_users": "Consultants cybersécurité, auditeurs de conformité SOC2",
+      "default_input": {
+        "targetUrl": "https://cloudflare.com"
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-12",
+      "slug": "tech-stack-detector-http-signatures",
+      "name": "Lightweight Tech Stack & CMS Fingerprinter",
+      "category": "b2b-intelligence",
+      "protocol": "HTTP Headers & HTML Signatures",
+      "description": "Détecte le framework (Next.js, Nuxt, WordPress, Shopify, Webflow), le serveur web, le CDN et les tags analytics d'un site web.",
+      "target_users": "Équipes Sales Dev (SDR), outils d'enrichissement B2B, Make/n8n",
+      "default_input": {
+        "targetUrl": "https://wordpress.org"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-13",
+      "slug": "vies-eu-vat-number-validator",
+      "name": "EU VIES VAT Number & Company Legal Validator",
+      "category": "european-compliance",
+      "protocol": "European Commission VIES REST API",
+      "description": "Vérifie la validité légale d'un numéro de TVA intracommunautaire européen auprès de la Commission Européenne avec raison sociale officielle.",
+      "target_users": "SaaS B2B, services comptables, facturation automatisée",
+      "default_input": {
+        "countryCode": "FR",
+        "vatNumber": "83444455555"
+      },
+      "pricing_suggestion_usd": 20.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-14",
+      "slug": "security-txt-robots-txt-compliance-crawler",
+      "name": "RFC 9116 security.txt & robots.txt Enterprise Crawler",
+      "category": "infrastructure-security",
+      "protocol": "HTTP GET Standards RFC 9116",
+      "description": "Inspecte les fichiers standardisés security.txt, robots.txt et humans.txt pour auditer les politiques de divulgation et directives IA.",
+      "target_users": "White-hat hackers, programmes bug bounty, juristes web",
+      "default_input": {
+        "domain": "github.com"
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-15",
+      "slug": "openapi-swagger-spec-to-llm-tools",
+      "name": "OpenAPI / Swagger Spec to LLM Function Calling Tools",
+      "category": "ai-llm-data-prep",
+      "protocol": "JSON / YAML OpenAPI Spec Parsing",
+      "description": "Télécharge une spécification OpenAPI / Swagger et la convertit automatiquement en schémas de Function Calling pour OpenAI, Gemini et Claude.",
+      "target_users": "Ingénieurs Agents IA, développeurs LangChain/LlamaIndex",
+      "default_input": {
+        "specUrl": "https://petstore.swagger.io/v2/swagger.json"
+      },
+      "pricing_suggestion_usd": 29.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-16",
+      "slug": "statuspage-io-incident-uptime-monitor",
+      "name": "Public Statuspage & Cloud Outage Incident Monitor",
+      "category": "b2b-intelligence",
+      "protocol": "Public Statuspage.io API / summary.json",
+      "description": "Surveille les pages d'état public (Cloudflare, GitHub, Datadog, Stripe) et alerte sur les pannes de composants et maintenances.",
+      "target_users": "Équipes support client B2B, ingénieurs SRE, webhooks n8n",
+      "default_input": {
+        "statusPageUrl": "https://www.githubstatus.com"
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-17",
+      "slug": "rss-atom-feed-content-cleaner-rag",
+      "name": "RSS & Atom Feed Content Normalizer for AI Agents",
+      "category": "ai-llm-data-prep",
+      "protocol": "XML RSS/Atom Parsing & HTML Cleaning",
+      "description": "Convertit n'importe quel flux RSS/Atom en JSON propre débarrassé des publicités, avec extraction du texte plein pour veille automatisée.",
+      "target_users": "Créateurs de newsletters IA, agents d'actualités personnalisées",
+      "default_input": {
+        "feedUrl": "https://hnrss.org/frontpage",
+        "maxEntries": 15
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-18",
+      "slug": "github-repo-releases-changelog-extractor",
+      "name": "GitHub Public Releases & Semantic Changelog Watcher",
+      "category": "b2b-intelligence",
+      "protocol": "GitHub Public REST API (unauthenticated)",
+      "description": "Surveille les releases de bibliothèques open-source et génère un résumé structuré des breaking changes pour les équipes d'ingénierie.",
+      "target_users": "Lead developers, directeurs techniques (CTO), veilleurs techno",
+      "default_input": {
+        "repoOwner": "fastapi",
+        "repoName": "fastapi",
+        "maxReleases": 5
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-19",
+      "slug": "woocommerce-public-feed-price-tracker",
+      "name": "WooCommerce Store Public Feed & Price Tracker",
+      "category": "e-commerce",
+      "protocol": "WooCommerce Public RSS Product Feeds",
+      "description": "Interroge les flux produits publics des boutiques WordPress WooCommerce pour extraire les variations de prix et nouveaux lancements.",
+      "target_users": "Dropshippers, comparateurs de prix, agences e-commerce",
+      "default_input": {
+        "storeUrl": "https://woocommerce.com",
+        "maxItems": 20
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-20",
+      "slug": "eu-ai-act-transparency-disclosure-checker",
+      "name": "EU AI Act Compliance & AI Disclosure Scanner",
+      "category": "european-compliance",
+      "protocol": "HTML & Meta Tag Semantic Inspection",
+      "description": "Audite un site ou service en ligne pour vérifier la présence des mentions obligatoires de l'EU AI Act (indication de contenu généré par IA).",
+      "target_users": "Cabinets d'avocats IP/IT, éditeurs SaaS IA, responsables éthique",
+      "default_input": {
+        "siteUrl": "https://openai.com"
+      },
+      "pricing_suggestion_usd": 39.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-21",
+      "slug": "french-sirene-company-registry-lookup",
+      "name": "French SIRENE & Insee Company Open Data Extractor",
+      "category": "b2b-intelligence",
+      "protocol": "API Recherche Entreprises (Open Data Gouv)",
+      "description": "Vérifie la légalité, le statut actif, les dirigeants et le code NAF/APE d'entreprises françaises via la base officielle ouverte.",
+      "target_users": "SaaS B2B France, outils de KYC / conformité, Make/Zapier",
+      "default_input": {
+        "sirenOrName": "Google France"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-22",
+      "slug": "podcast-rss-show-notes-transcript-extractor",
+      "name": "Podcast RSS Show Notes & Audio Links Extractor",
+      "category": "b2b-intelligence",
+      "protocol": "Podcast RSS 2.0 / iTunes XML Specification",
+      "description": "Extrait les métadonnées, notes d'épisodes, sponsors mentionnés et liens de transcription d'un podcast via son flux RSS standard.",
+      "target_users": "Agences d'influence B2B, rédacteurs de synthèses audio, RAG",
+      "default_input": {
+        "podcastRssUrl": "https://feeds.simplecast.com/qm_9xx0g"
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-23",
+      "slug": "subdomain-dns-enumeration-fast-auditor",
+      "name": "Subdomain DNS & CNAME Takeover Vulnerability Auditor",
+      "category": "infrastructure-security",
+      "protocol": "DNS Resolution / Crth.sh Public Transparency Logs",
+      "description": "Découvre les sous-domaines publics d'une marque via les Certificate Transparency logs et détecte les CNAME orphelins vulnérables.",
+      "target_users": "Équipes AppSec, experts en cybersécurité, bug hunters",
+      "default_input": {
+        "domain": "stripe.com"
+      },
+      "pricing_suggestion_usd": 29.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-24",
+      "slug": "workable-public-careers-job-scraper",
+      "name": "Workable Public Job Board & Application Links Extractor",
+      "category": "recruitment-ats",
+      "protocol": "Workable Embed Widget JSON",
+      "description": "Extrait sans friction les opportunités d'emploi publiées par les entreprises utilisant le logiciel ATS Workable.",
+      "target_users": "Cabinets de recrutement, job boards spécialisés",
+      "default_input": {
+        "companyAccount": "invision"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-25",
+      "slug": "french-legal-mentions-impressum-crawler",
+      "name": "Legal Mentions & Impressum Compliance Extractor",
+      "category": "european-compliance",
+      "protocol": "Semantic HTML Path Finding & Regex Extraction",
+      "description": "Repère et analyse la page de mentions légales d'un site web professionnel pour extraire l'hébergeur, le numéro RCS et le capital social.",
+      "target_users": "Agences de prospection commerciale, juristes d'entreprise",
+      "default_input": {
+        "websiteUrl": "https://lemonde.fr"
+      },
+      "pricing_suggestion_usd": 25.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-26",
+      "slug": "jsonfeed-org-standard-cleaner",
+      "name": "JSON Feed 1.1 Syndication to Structured JSON Parser",
+      "category": "ai-llm-data-prep",
+      "protocol": "JSON Feed 1.1 Specification",
+      "description": "Parse et valide les flux de syndication moderne au format JSON Feed pour ingestion directe dans les bases de données vectorielles.",
+      "target_users": "Développeurs de flux d'informations temps réel, IA RAG",
+      "default_input": {
+        "feedUrl": "https://daringfireball.net/feeds/json"
+      },
+      "pricing_suggestion_usd": 15.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-27",
+      "slug": "npm-pypi-package-health-vulnerability-checker",
+      "name": "NPM & PyPI Open-Source Package Health Auditor",
+      "category": "infrastructure-security",
+      "protocol": "Public Registry JSON APIs (pypi.org, registry.npmjs.org)",
+      "description": "Évalue l'activité, la licence, les dépendances critiques et la maintenance d'une bibliothèque Python ou Node.js.",
+      "target_users": "Responsables open-source, architectes logiciels, DevOps",
+      "default_input": {
+        "ecosystem": "pypi",
+        "packageName": "requests"
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-28",
+      "slug": "b2b-eventbrite-luma-public-meetups-finder",
+      "name": "Tech & B2B Public Meetup Schedule Aggregator",
+      "category": "b2b-intelligence",
+      "protocol": "Public iCal / JSON-LD Event schema",
+      "description": "Agrège les prochains événements tech et business d'un écosystème via les flux d'agendas publics sans proxy payant.",
+      "target_users": "Networkers B2B, sponsors d'événements, commerciaux terrain",
+      "default_input": {
+        "eventCalendarUrl": "https://www.w3.org/participate/eventscalendar.ics"
+      },
+      "pricing_suggestion_usd": 20.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-29",
+      "slug": "core-web-vitals-light-performance-checker",
+      "name": "Lightweight Core Web Vitals & TTFB HTTP Inspector",
+      "category": "seo-tech",
+      "protocol": "HTTP Timing Diagnostics",
+      "description": "Mesure avec précision le TTFB (Time to First Byte), la compression Gzip/Brotli, les redirections et le poids des assets critiques.",
+      "target_users": "Consultants SEO technique, développeurs web performance",
+      "default_input": {
+        "targetUrl": "https://news.ycombinator.com"
+      },
+      "pricing_suggestion_usd": 19.0,
+      "status": "pending"
+    },
+    {
+      "id": "idea-30",
+      "slug": "ashby-ats-public-jobs-scraper",
+      "name": "Ashby ATS Modern Tech Jobs & Salary Extractor",
+      "category": "recruitment-ats",
+      "protocol": "Ashby Public API /api/non-auth/job-board",
+      "description": "Récupère les offres d'emploi, fourchettes de rémunération et lieux de travail des startups tech hébergées sur AshbyHQ.",
+      "target_users": "Observatoires des salaires tech, cabinets de recrutement",
+      "default_input": {
+        "companySlug": "openai"
+      },
+      "pricing_suggestion_usd": 29.0,
+      "status": "pending"
+    }
+  ]
+}

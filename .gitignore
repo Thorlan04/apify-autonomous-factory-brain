@@ -1,0 +1,25 @@
+# Environnement et Secrets
+.env
+*.env
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environnements virtuels Python
+venv/
+.venv/
+env/
+
+# Dossier temporaire des Actors générés en local (conservés dans les branches git actor/*)
+generated_actors/*/storage/
+generated_actors/*/.venv/
+generated_actors/**/__pycache__/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

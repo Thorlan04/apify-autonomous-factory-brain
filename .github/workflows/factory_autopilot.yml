@@ -1,0 +1,85 @@
+name: Apify Factory Autopilot
+
+on:
+  schedule:
+    # Déclenchement automatique chaque mercredi à 03h00 UTC
+    - cron: '0 3 * * 3'
+  workflow_dispatch:
+    inputs:
+      force_slug:
+        description: 'Slug du robot à déployer en priorité (optionnel)'
+        required: false
+        default: ''
+      skip_deploy:
+        description: 'Tester sans publier sur Apify (dry-run)'
+        type: boolean
+        required: false
+        default: false
+      maintenance_only:
+        description: 'Exécuter uniquement la maintenance de la flotte existante'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  run-autonomous-factory:
+    name: Autonomous Factory Brain Cycle
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout du Cerveau de l'Usine
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Configuration de l'environnement Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 Installation des dépendances
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: ⚙️ Configuration Git
+        run: |
+          git config user.name "Apify Autonomous Factory Brain"
+          git config user.email "factory-brain@users.noreply.github.com"
+
+      - name: 🧠 Exécution de l'Orchestrateur Autonome
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.force_slug }}" ]; then
+            ARGS="$ARGS --force-slug ${{ github.event.inputs.force_slug }}"
+          fi
+          if [ "${{ github.event.inputs.skip_deploy }}" = "true" ]; then
+            ARGS="$ARGS --skip-deploy"
+          fi
+          if [ "${{ github.event.inputs.maintenance_only }}" = "true" ]; then
+            ARGS="$ARGS --maintenance-only"
+          fi
+
+          python src/factory_orchestrator.py $ARGS
+
+      - name: 💾 Sauvegarde du Registre et de la Comptabilité
+        run: |
+          git status
+          git add data/factory_registry.json compta_impots/
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "chore(factory): update registry & micro-bnc accounting [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "Aucune modification à commiter."
+          fi

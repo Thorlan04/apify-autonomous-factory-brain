@@ -1,0 +1,34 @@
+{
+  "regime_fiscal": "Micro-BNC (Professions Libérales / Services Informatiques)",
+  "derniere_mise_a_jour": "2026-10-18T07:22:21.356030+00:00",
+  "synthese_encaissements": {
+    "total_recettes_brutes_eur": 0.0,
+    "nombre_payouts_enregistres": 0,
+    "devise": "EUR"
+  },
+  "declaration_impot_sur_le_revenu_2042_c_pro": {
+    "case_5HQ_recettes_brutes_sans_abattement": 0.0,
+    "explication_5HQ": "Montant brut total des encaissements de l'année civile. L'administration appliquera l'abattement forfaitaire de 34%.",
+    "abattement_forfaitaire_34_pct": 0.0,
+    "revenu_net_fiscal_apres_abattement": 0.0,
+    "case_5TE_versement_liberatoire": 0.0,
+    "explication_5TE": "À remplir UNIQUEMENT si vous avez opté pour le versement libératoire de l'impôt sur le revenu auprès de l'URSSAF (taux 2,2%)."
+  },
+  "cotisations_sociales_urssaf_estimees": {
+    "taux_applique": "23,10 %",
+    "montant_a_payer_urssaf": 0.0,
+    "net_apres_urssaf": 0.0
+  },
+  "conformite_tva_et_ue": {
+    "regime_tva": "Franchise en base de TVA (Art. 293 B du CGI) ou Prestation B2B intracommunautaire (Autoliquidation)",
+    "payout_apify_tva": "0% TVA facturée (Autoliquidation par le client Apify en République Tchèque - Art. 196 Directive 2006/112/CE)",
+    "declaration_europeenne_de_services_des": "À déposer mensuellement sur douane.gouv.fr pour les ventes B2B en UE sans TVA.",
+    "depassement_seuil_franchise_tva": false,
+    "seuil_franchise_tva_services_eur": 36800.0
+  },
+  "alertes_seuils_fiscaux": {
+    "seuil_micro_bnc_eur": 77700.0,
+    "pourcentage_seuil_consomme": 0.0,
+    "depassement_seuil_micro_bnc": false
+  }
+}
