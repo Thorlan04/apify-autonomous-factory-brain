@@ -4,25 +4,28 @@
   "schemaVersion": 1,
   "properties": {
     "storeUrl": {
-      "title": "Storeurl",
+      "title": "Store URL",
       "type": "string",
-      "description": "Paramètre d'entrée : storeUrl",
-      "default": "https://shop.fender.com",
-      "prefill": "https://shop.fender.com"
+      "description": "Base URL of the public Shopify store (e.g. https://colourpop.com)",
+      "default": "https://colourpop.com",
+      "prefill": "https://colourpop.com",
+      "editor": "textfield"
     },
     "maxPages": {
-      "title": "Maxpages",
+      "title": "Max Pages",
       "type": "integer",
-      "description": "Paramètre d'entrée : maxPages",
+      "description": "Maximum number of pages to fetch from /products.json",
       "default": 2,
-      "prefill": 2
+      "prefill": 2,
+      "editor": "number"
     },
     "limitPerPage": {
-      "title": "Limitperpage",
+      "title": "Limit Per Page",
       "type": "integer",
-      "description": "Paramètre d'entrée : limitPerPage",
+      "description": "Number of products per page (max 250)",
       "default": 50,
-      "prefill": 50
+      "prefill": 50,
+      "editor": "number"
     }
   },
   "required": [
