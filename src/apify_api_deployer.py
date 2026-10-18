@@ -118,13 +118,17 @@ class ApifyApiDeployer:
             commit_msg = f"feat(actor): autonomous deployment of {actor_slug}"
             subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True)
 
-            # Si GITHUB_TOKEN et remote sont présents, push vers origin
+            # Push vers origin (avec token si présent, sinon via le credential helper local)
             if self.github_token and self.github_repo:
                 remote_url = f"https://x-access-token:{self.github_token}@github.com/{self.github_repo}.git"
                 subprocess.run(["git", "push", "-u", remote_url, branch_name, "--force"], capture_output=True)
-                logger.info(f"Branche '{branch_name}' poussée avec succès sur GitHub.")
+                logger.info(f"Branche '{branch_name}' poussée avec succès sur GitHub via GITHUB_TOKEN.")
             else:
-                logger.info(f"Branche locale '{branch_name}' validée et commitée.")
+                push_res = subprocess.run(["git", "push", "-u", "origin", branch_name, "--force"], capture_output=True, text=True)
+                if push_res.returncode == 0:
+                    logger.info(f"Branche '{branch_name}' poussée avec succès sur GitHub origin.")
+                else:
+                    logger.info(f"Branche locale '{branch_name}' validée et commitée (push origin en attente).")
 
             # Retour sur la branche principale
             subprocess.run(["git", "checkout", "main"], capture_output=True)
