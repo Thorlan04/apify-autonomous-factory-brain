@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "shopify-fast-catalog-products-json",
+  "title": "Shopify Fast Catalog & Inventory Monitor",
+  "description": "Scrape l'intégralité du catalogue public, variantes de prix, inventaires et SKU d'une boutique Shopify via le endpoint natif sans headless browser.",
+  "version": "0.1",
+  "dockerfile": "./Dockerfile",
+  "restartOnError": false,
+  "meta": {
+    "categories": [
+      "E_COMMERCE"
+    ]
+  }
+}

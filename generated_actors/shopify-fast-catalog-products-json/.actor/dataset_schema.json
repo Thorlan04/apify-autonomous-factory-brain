@@ -1,0 +1,33 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "type": "object",
+    "properties": {
+      "scrapedAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Horodatage ISO de l'extraction"
+      },
+      "status": {
+        "type": "string",
+        "description": "Statut de l'opération (SUCCESS, WARNING, ERROR)"
+      },
+      "data": {
+        "type": "object",
+        "description": "Données extraites déterministes"
+      }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Aperçu des Données",
+      "transformation": {
+        "fields": [
+          "scrapedAt",
+          "status",
+          "data"
+        ]
+      }
+    }
+  }
+}

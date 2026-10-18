@@ -1,0 +1,33 @@
+{
+  "title": "Input Schema for Shopify Fast Catalog & Inventory Monitor",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "storeUrl": {
+      "title": "Storeurl",
+      "type": "string",
+      "description": "Paramètre d'entrée : storeUrl",
+      "default": "https://shop.fender.com",
+      "prefill": "https://shop.fender.com"
+    },
+    "maxPages": {
+      "title": "Maxpages",
+      "type": "integer",
+      "description": "Paramètre d'entrée : maxPages",
+      "default": 2,
+      "prefill": 2
+    },
+    "limitPerPage": {
+      "title": "Limitperpage",
+      "type": "integer",
+      "description": "Paramètre d'entrée : limitPerPage",
+      "default": 50,
+      "prefill": 50
+    }
+  },
+  "required": [
+    "storeUrl",
+    "maxPages",
+    "limitPerPage"
+  ]
+}

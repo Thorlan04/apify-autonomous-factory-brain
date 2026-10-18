@@ -1,1 +1,2 @@
 date_encaissement;reference_piece;client_debiteur;nature_prestation;montant_brute_eur;mode_reglement;mention_tva;declaration_europeenne_services_des;pays_debiteur
+18/10/2026;APIFY-PAYOUT-INITIAL-DEMO;Apify Technologies s.r.o. (CZ04787261);Initialisation Usine Apify - Solde d'amorçage;0.00;Virement Bancaire SEPA;Autoliquidation - Art. 196 Directive 2006/112/CE;OUI (Prestation B2B intracommunautaire UE);Tchéquie (UE)

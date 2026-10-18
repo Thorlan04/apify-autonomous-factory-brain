@@ -9,8 +9,14 @@ import json
 import logging
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from src.brain_ideator import ActorIdea
 
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)s] %(message)s")
@@ -217,7 +223,7 @@ RÈGLES D'OR TECHNIQUES D'EXÉCUTION :
    - Si absent, utiliser IMMÉDIATEMENT le dictionnaire des valeurs par défaut : {json.dumps(idea.default_input)}.
 3. Sauvegarde des résultats (Apify Dataset & Local) :
    - Écrire chaque enregistrement dans le dataset local : créer le dossier `./storage/datasets/default/` et sauvegarder les items sous forme de fichiers JSON indexés (`000000001.json`, etc.) OU un fichier consolidé `results.json`.
-   - Si les variables d'environnement `APIFY_TOKEN` et `APIFY_DEFAULT_DATASET_ID` sont définies, faire un POST HTTP vers `https://api.apify.com/v2/datasets/{os.environ['APIFY_DEFAULT_DATASET_ID']}/items`.
+   - Si les variables d'environnement `APIFY_TOKEN` et `APIFY_DEFAULT_DATASET_ID` sont définies, faire un POST HTTP vers `https://api.apify.com/v2/datasets/<APIFY_DEFAULT_DATASET_ID>/items`.
    - Afficher au moins un log JSON clair sur `sys.stdout` contenant la clé `APIFY_DATASET_COUNT` indiquant le nombre d'éléments enregistrés.
 4. Règle Zéro-Proxy : Utiliser la bibliothèque `requests` standard avec un User-Agent professionnel légitime. Si BeautifulSoup est nécessaire, l'utiliser proprement.
 5. Gestion des exceptions : Capturer les erreurs réseau proprement avec un fallback ou un enregistrement d'erreur structuré afin que l'Actor produise TOUJOURS au moins 1 enregistrement dans le dataset même si la cible externe répond une erreur HTTP.

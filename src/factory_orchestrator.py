@@ -23,6 +23,11 @@ from dotenv import load_dotenv
 # Chargement des variables d'environnement si un fichier .env existe
 load_dotenv()
 
+# Assure la présence de la racine du projet dans sys.path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from src.brain_ideator import BrainIdeator
 from src.actor_code_generator import ActorCodeGenerator
 from src.sandbox_tester import SandboxTester

@@ -4,10 +4,10 @@
     "name": "apify-autonomous-factory-brain",
     "owner": "Autonomous Factory Brain",
     "monthly_free_tier_budget_usd": 5.0,
-    "max_monthly_spend_target_usd": 0.80,
+    "max_monthly_spend_target_usd": 0.8,
     "max_weekly_creations": 1,
     "max_weekly_maintenances": 1,
-    "last_cycle_timestamp": null,
+    "last_cycle_timestamp": "2026-10-18T07:46:49.843449+00:00",
     "total_actors_deployed": 0
   },
   "deployed_actors": [],

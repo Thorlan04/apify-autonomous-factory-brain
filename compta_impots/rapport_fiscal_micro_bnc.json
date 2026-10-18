@@ -1,9 +1,9 @@
 {
   "regime_fiscal": "Micro-BNC (Professions Libérales / Services Informatiques)",
-  "derniere_mise_a_jour": "2026-10-18T07:22:21.356030+00:00",
+  "derniere_mise_a_jour": "2026-10-18T07:46:49.815740+00:00",
   "synthese_encaissements": {
     "total_recettes_brutes_eur": 0.0,
-    "nombre_payouts_enregistres": 0,
+    "nombre_payouts_enregistres": 1,
     "devise": "EUR"
   },
   "declaration_impot_sur_le_revenu_2042_c_pro": {
