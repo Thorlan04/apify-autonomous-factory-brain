@@ -7,10 +7,19 @@
     "max_monthly_spend_target_usd": 0.8,
     "max_weekly_creations": 1,
     "max_weekly_maintenances": 1,
-    "last_cycle_timestamp": "2026-10-18T07:46:49.843449+00:00",
-    "total_actors_deployed": 0
+    "last_cycle_timestamp": "2026-10-18T07:51:54.884457+00:00",
+    "total_actors_deployed": 1
   },
-  "deployed_actors": [],
+  "deployed_actors": [
+    {
+      "slug": "shopify-fast-catalog-products-json",
+      "apify_act_id": "da88L4w9QYoPNXjmd",
+      "git_branch": "actor/shopify-fast-catalog-products-json",
+      "status": "active",
+      "health": "healthy",
+      "last_maintenance_at": null
+    }
+  ],
   "ideas_backlog": [
     {
       "id": "idea-01",
@@ -26,7 +35,8 @@
         "limitPerPage": 50
       },
       "pricing_suggestion_usd": 19.0,
-      "status": "pending"
+      "status": "deployed",
+      "deployed_at": "18/10/2026"
     },
     {
       "id": "idea-02",
