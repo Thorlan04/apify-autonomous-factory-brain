@@ -110,11 +110,23 @@ class ApifyApiDeployer:
             subprocess.run(["git", "config", "user.email", "brain@autonomous-factory.local"], capture_output=True)
 
         try:
-            # Création / bascule sur la branche
+            # Création / bascule sur la branche dédiée
             subprocess.run(["git", "checkout", "-B", branch_name], capture_output=True)
-            # Ajout des fichiers de l'Actor
-            subprocess.run(["git", "add", str(actor_dir)], capture_output=True)
-            subprocess.run(["git", "add", "data/factory_registry.json"], capture_output=True)
+
+            # Copie des fichiers de l'Actor directement à la racine de la branche pour Apify
+            import shutil
+            for item in actor_dir.iterdir():
+                if item.name in ["storage", ".git"]:
+                    continue
+                target = Path.cwd() / item.name
+                if item.is_dir():
+                    if target.exists():
+                        shutil.rmtree(target)
+                    shutil.copytree(item, target)
+                else:
+                    shutil.copy2(item, target)
+
+            subprocess.run(["git", "add", "."], capture_output=True)
             commit_msg = f"feat(actor): autonomous deployment of {actor_slug}"
             subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True)
 
@@ -130,8 +142,10 @@ class ApifyApiDeployer:
                 else:
                     logger.info(f"Branche locale '{branch_name}' validée et commitée (push origin en attente).")
 
-            # Retour sur la branche principale
-            subprocess.run(["git", "checkout", "main"], capture_output=True)
+            # Retour propre sur la branche principale
+            subprocess.run(["git", "checkout", "main", "--force"], capture_output=True)
+            # Nettoyage des fichiers résiduels du root de la branche actor sur main
+            subprocess.run(["git", "clean", "-fd", "-e", "generated_actors", "-e", ".env"], capture_output=True)
         except Exception as e:
             logger.warning(f"Opération Git terminée avec avertissement : {e}")
 
@@ -178,7 +192,7 @@ class ApifyApiDeployer:
             "name": actor_slug,
             "title": actor_name,
             "description": actor_description[:250],
-            "isPublic": True,
+            "isPublic": False,
             "defaultRunOptions": {
                 "build": "latest",
                 "timeoutSecs": 300,
