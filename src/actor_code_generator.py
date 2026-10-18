@@ -110,7 +110,6 @@ class ActorCodeGenerator:
                     "type": "string",
                     "title": "Scraped Results Dataset",
                     "description": "Dataset containing all items collected by the Actor.",
-                    "resourceType": "dataset",
                     "template": "{{links.defaultDatasetId}}"
                 }
             }

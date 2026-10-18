@@ -8,7 +8,6 @@
       "type": "string",
       "title": "Scraped Products Dataset",
       "description": "Dataset containing all extracted Shopify products.",
-      "resourceType": "dataset",
       "template": "{{links.defaultDatasetId}}"
     }
   }
