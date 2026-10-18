@@ -1,14 +1,15 @@
 {
   "actorOutputSchemaVersion": 1,
-  "title": "Output Schema for Shopify Fast Catalog & Inventory Monitor",
-  "description": "Defines the output produced by the Actor.",
+  "title": "Shopify Fast Catalog Output Results",
+  "description": "Products, variants, pricing, and inventory extracted from the public Shopify store.",
   "type": "object",
   "properties": {
-    "resultsDatasetUrl": {
+    "dataset": {
       "type": "string",
-      "title": "Results dataset",
-      "description": "URL to the dataset containing the scraped items.",
-      "resourceType": "dataset"
+      "title": "Scraped Products Dataset",
+      "description": "Dataset containing all extracted Shopify products.",
+      "resourceType": "dataset",
+      "template": "{{links.defaultDatasetId}}"
     }
   }
 }

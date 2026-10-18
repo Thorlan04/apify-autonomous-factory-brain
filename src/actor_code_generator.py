@@ -106,11 +106,12 @@ class ActorCodeGenerator:
             "description": "Defines the output produced by the Actor.",
             "type": "object",
             "properties": {
-                "resultsDatasetUrl": {
+                "dataset": {
                     "type": "string",
-                    "title": "Results dataset",
-                    "description": "URL to the dataset containing the scraped items.",
-                    "resourceType": "dataset"
+                    "title": "Scraped Results Dataset",
+                    "description": "Dataset containing all items collected by the Actor.",
+                    "resourceType": "dataset",
+                    "template": "{{links.defaultDatasetId}}"
                 }
             }
         }
