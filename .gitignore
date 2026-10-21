@@ -23,3 +23,6 @@ generated_actors/**/__pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Assets locaux
+logo.jpg

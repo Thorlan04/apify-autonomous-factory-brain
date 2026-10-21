@@ -171,22 +171,33 @@ Réponds UNIQUEMENT avec un objet JSON valide suivant exactement ce schéma :
 }}
 """
 
-        try:
-            from google import genai
-            client = genai.Client(api_key=api_key)
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            raw_text = response.text or "{}"
-        except Exception as e:
-            logger.warning(f"Erreur d'appel SDK google-genai ({e}), tentative via endpoint REST direct...")
-            import requests
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
-            payload = {"contents": [{"parts": [{"text": prompt}]}]}
-            res = requests.post(url, json=payload, timeout=30)
-            res.raise_for_status()
-            raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+        raw_text = "{}"
+        candidate_models = ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest"]
+        import requests
+
+        for model in candidate_models:
+            try:
+                from google import genai
+                client = genai.Client(api_key=api_key)
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+                if response.text:
+                    raw_text = response.text
+                    break
+            except Exception as e:
+                logger.warning(f"SDK ideator ({model}) : {e}")
+
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                res = requests.post(url, json=payload, timeout=30)
+                if res.status_code == 200:
+                    raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+                    break
+            except Exception:
+                pass
 
         # Extraction du bloc JSON
         json_match = re.search(r"\{.*\}", raw_text, re.DOTALL)

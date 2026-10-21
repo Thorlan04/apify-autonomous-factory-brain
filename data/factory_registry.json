@@ -7,7 +7,7 @@
     "max_monthly_spend_target_usd": 0.8,
     "max_weekly_creations": 1,
     "max_weekly_maintenances": 1,
-    "last_cycle_timestamp": "2026-10-18T07:51:54.884457+00:00",
+    "last_cycle_timestamp": "2026-10-21T08:59:31.894654+00:00",
     "total_actors_deployed": 1
   },
   "deployed_actors": [
@@ -17,7 +17,7 @@
       "git_branch": "actor/shopify-fast-catalog-products-json",
       "status": "active",
       "health": "healthy",
-      "last_maintenance_at": null
+      "last_maintenance_at": "2026-10-21T09:01:30.647766+00:00"
     }
   ],
   "ideas_backlog": [

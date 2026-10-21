@@ -34,6 +34,7 @@ jobs:
       - name: 📥 Checkout du Cerveau de l'Usine
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -79,7 +80,7 @@ jobs:
           git add data/factory_registry.json compta_impots/
           if ! git diff-index --quiet HEAD --; then
             git commit -m "chore(factory): update registry & micro-bnc accounting [skip ci]"
-            git push origin HEAD:${{ github.ref_name }}
+            git push origin HEAD:main
           else
             echo "Aucune modification à commiter."
           fi

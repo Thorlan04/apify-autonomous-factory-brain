@@ -120,7 +120,14 @@ class FleetMaintainer:
 
         # 2. Déclenchement du rebuild pour rafraîchir le badge 'Recently Updated'
         try:
-            build_res = requests.post(f"{APIFY_BASE_URL}/acts/{act_id}/builds", headers=headers, timeout=20)
+            version_to_build = "0.1"
+            act_info = requests.get(f"{APIFY_BASE_URL}/acts/{act_id}", headers=headers, timeout=15)
+            if act_info.status_code == 200:
+                versions = act_info.json().get("data", {}).get("versions", [])
+                if versions:
+                    version_to_build = versions[-1].get("versionNumber", "0.1")
+
+            build_res = requests.post(f"{APIFY_BASE_URL}/acts/{act_id}/builds?version={version_to_build}", headers=headers, timeout=20)
             if build_res.status_code in [200, 201]:
                 rebuild_triggered = True
                 logger.info(f"Rebuild de maintenance lancé avec succès pour {slug}.")

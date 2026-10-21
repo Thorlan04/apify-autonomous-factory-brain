@@ -34,32 +34,46 @@ class ActorCodeGenerator:
         self.output_root.mkdir(parents=True, exist_ok=True)
 
     def _call_gemini(self, prompt: str) -> str:
-        """Appelle Gemini 2.5 Flash via google-genai ou fallback REST."""
+        """Appelle l'API Gemini avec bascule automatique (fallback cascade) sur plusieurs modèles."""
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("GEMINI_API_KEY manquant. Impossible de générer le code de l'Actor.")
 
-        try:
-            from google import genai
-            client = genai.Client(api_key=api_key)
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            if response.text:
-                return response.text
-        except Exception as e:
-            logger.warning(f"Appel google-genai a échoué ({e}). Utilisation du fallback REST...")
-
+        candidate_models = ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest"]
+        last_error = None
         import requests
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
-        payload = {"contents": [{"parts": [{"text": prompt}]}]}
-        res = requests.post(url, json=payload, timeout=90)
-        res.raise_for_status()
-        candidates = res.json().get("candidates", [])
-        if not candidates:
-            raise ValueError("Réponse Gemini vide reçue lors de la génération de code.")
-        return candidates[0]["content"]["parts"][0]["text"]
+
+        for model in candidate_models:
+            try:
+                from google import genai
+                client = genai.Client(api_key=api_key)
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+                if response.text:
+                    logger.info(f"Code généré avec succès par le modèle {model}.")
+                    return response.text
+            except Exception as e:
+                logger.warning(f"SDK google-genai ({model}) a échoué: {e}. Tentative REST...")
+
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                res = requests.post(url, json=payload, timeout=90)
+                if res.status_code == 200:
+                    candidates = res.json().get("candidates", [])
+                    if candidates:
+                        logger.info(f"Code généré avec succès via REST sur {model}.")
+                        return candidates[0]["content"]["parts"][0]["text"]
+                else:
+                    logger.warning(f"Modèle {model} indisponible (HTTP {res.status_code}). Bascule...")
+                    last_error = f"HTTP {res.status_code}: {res.text[:150]}"
+            except Exception as er:
+                logger.warning(f"Erreur réseau sur {model} ({er}). Bascule...")
+                last_error = str(er)
+
+        raise RuntimeError(f"Tous les modèles Gemini ont échoué. Dernière erreur : {last_error}")
 
     def generate_actor_files(self, idea: ActorIdea) -> Path:
         """
@@ -255,15 +269,35 @@ RÈGLES D'OR TECHNIQUES D'EXÉCUTION :
 """
 
         raw_response = self._call_gemini(prompt)
-        code_match = re.search(r"```python(.*?)```", raw_response, re.DOTALL)
-        if code_match:
-            code = code_match.group(1).strip()
-        else:
-            code = raw_response.strip()
+        return self._extract_clean_python_code(raw_response)
 
-        # Nettoyage si markdown résiduel
-        code = re.sub(r"^```.*\n", "", code)
-        code = re.sub(r"\n```$", "", code)
+    @staticmethod
+    def _extract_clean_python_code(raw: str) -> str:
+        """Extrait proprement le code Python du bloc Markdown sans être tronqué par les triples backticks internes."""
+        if not raw:
+            return ""
+
+        start_marker = "```python"
+        start_pos = raw.find(start_marker)
+        if start_pos != -1:
+            start_pos += len(start_marker)
+        else:
+            start_marker = "```"
+            start_pos = raw.find(start_marker)
+            if start_pos != -1:
+                start_pos += len(start_marker)
+            else:
+                start_pos = 0
+
+        end_pos = raw.rfind("```")
+        if end_pos > start_pos:
+            code = raw[start_pos:end_pos].strip()
+        else:
+            code = raw[start_pos:].strip()
+
+        code = re.sub(r"^```python\s*", "", code)
+        code = re.sub(r"^```\s*", "", code)
+        code = re.sub(r"\s*```$", "", code)
         return code
 
     def _generate_store_readme(self, idea: ActorIdea) -> str:

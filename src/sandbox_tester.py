@@ -200,32 +200,65 @@ MISSION DE RÉPARATION :
 4. Ne renvoie QUE le code Python sans blabla dans un bloc ```python ... ```.
 """
 
-        try:
-            from google import genai
-            client = genai.Client(api_key=self.api_key)
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
-            )
-            raw = response.text or ""
-        except Exception as e:
-            logger.warning(f"Erreur d'appel SDK google-genai ({e}), tentative via REST...")
-            import requests
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={self.api_key}"
-            payload = {"contents": [{"parts": [{"text": prompt}]}]}
-            res = requests.post(url, json=payload, timeout=90)
-            res.raise_for_status()
-            raw = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+        candidate_models = ["gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest"]
+        raw = ""
+        import requests
 
-        code_match = re.search(r"```python(.*?)```", raw, re.DOTALL)
-        if code_match:
-            clean_code = code_match.group(1).strip()
-        else:
-            clean_code = raw.strip()
+        for model in candidate_models:
+            try:
+                from google import genai
+                client = genai.Client(api_key=self.api_key)
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+                if response.text:
+                    raw = response.text
+                    break
+            except Exception as e:
+                logger.warning(f"SDK google-genai auto-guérison ({model}) : {e}. Tentative REST...")
 
-        clean_code = re.sub(r"^```.*\n", "", clean_code)
-        clean_code = re.sub(r"\n```$", "", clean_code)
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={self.api_key}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                res = requests.post(url, json=payload, timeout=90)
+                if res.status_code == 200:
+                    raw = res.json()["candidates"][0]["content"]["parts"][0]["text"]
+                    break
+            except Exception as er:
+                logger.warning(f"Erreur REST auto-guérison sur {model} ({er}).")
+
+        clean_code = self._extract_clean_python_code(raw)
         return clean_code if len(clean_code) > 50 else None
+
+    @staticmethod
+    def _extract_clean_python_code(raw: str) -> str:
+        """Extrait proprement le code Python du bloc Markdown sans être tronqué par les triples backticks internes."""
+        if not raw:
+            return ""
+
+        start_marker = "```python"
+        start_pos = raw.find(start_marker)
+        if start_pos != -1:
+            start_pos += len(start_marker)
+        else:
+            start_marker = "```"
+            start_pos = raw.find(start_marker)
+            if start_pos != -1:
+                start_pos += len(start_marker)
+            else:
+                start_pos = 0
+
+        end_pos = raw.rfind("```")
+        if end_pos > start_pos:
+            code = raw[start_pos:end_pos].strip()
+        else:
+            code = raw[start_pos:].strip()
+
+        code = re.sub(r"^```python\s*", "", code)
+        code = re.sub(r"^```\s*", "", code)
+        code = re.sub(r"\s*```$", "", code)
+        return code
 
 
 if __name__ == "__main__":
