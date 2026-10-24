@@ -1,0 +1,14 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Output Schema for Website to llms.txt & Markdown RAG Converter",
+  "description": "Defines the output produced by the Actor.",
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string",
+      "title": "Scraped Results Dataset",
+      "description": "Dataset containing all items collected by the Actor.",
+      "template": "{{links.defaultDatasetId}}"
+    }
+  }
+}

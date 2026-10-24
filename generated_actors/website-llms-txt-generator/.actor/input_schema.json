@@ -1,0 +1,33 @@
+{
+  "title": "Input Schema for Website to llms.txt & Markdown RAG Converter",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "startUrl": {
+      "title": "Starturl",
+      "type": "string",
+      "description": "Paramètre d'entrée : startUrl",
+      "default": "https://fastapi.tiangolo.com",
+      "prefill": "https://fastapi.tiangolo.com"
+    },
+    "maxDepth": {
+      "title": "Maxdepth",
+      "type": "integer",
+      "description": "Paramètre d'entrée : maxDepth",
+      "default": 1,
+      "prefill": 1
+    },
+    "maxPages": {
+      "title": "Maxpages",
+      "type": "integer",
+      "description": "Paramètre d'entrée : maxPages",
+      "default": 10,
+      "prefill": 10
+    }
+  },
+  "required": [
+    "startUrl",
+    "maxDepth",
+    "maxPages"
+  ]
+}

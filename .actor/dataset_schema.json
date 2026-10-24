@@ -1,0 +1,34 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "title": "Item ID"
+      },
+      "title": {
+        "type": "string",
+        "title": "Item Title"
+      },
+      "data": {
+        "type": "object",
+        "title": "Structured Data"
+      }
+    },
+    "additionalProperties": true
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "title",
+          "id",
+          "data"
+        ]
+      }
+    }
+  }
+}
