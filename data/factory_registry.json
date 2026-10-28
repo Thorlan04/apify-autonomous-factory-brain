@@ -7,8 +7,8 @@
     "max_monthly_spend_target_usd": 0.8,
     "max_weekly_creations": 1,
     "max_weekly_maintenances": 1,
-    "last_cycle_timestamp": "2026-10-21T08:59:31.894654+00:00",
-    "total_actors_deployed": 1
+    "last_cycle_timestamp": "2026-10-28T09:24:31.171602+00:00",
+    "total_actors_deployed": 2
   },
   "deployed_actors": [
     {
@@ -18,6 +18,14 @@
       "status": "active",
       "health": "healthy",
       "last_maintenance_at": "2026-10-21T09:01:30.647766+00:00"
+    },
+    {
+      "slug": "website-llms-txt-generator",
+      "apify_act_id": "lPGwCbpIwQ4hUx9aO",
+      "git_branch": "actor/website-llms-txt-generator",
+      "status": "active",
+      "health": "healthy",
+      "last_maintenance_at": null
     }
   ],
   "ideas_backlog": [
@@ -52,7 +60,8 @@
         "maxPages": 10
       },
       "pricing_suggestion_usd": 29.0,
-      "status": "pending"
+      "status": "deployed",
+      "deployed_at": "now"
     },
     {
       "id": "idea-03",
