@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "website-llms-txt-generator",
+  "title": "Website to llms.txt & Markdown RAG Converter",
+  "description": "Convertit n'importe quel site ou documentation en fichier standardisé llms.txt et llms-full.txt optimisé pour injection dans LLMs et RAG.",
+  "version": "0.1",
+  "dockerfile": "./Dockerfile",
+  "restartOnError": false,
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "meta": {
+    "categories": [
+      "AI_LLM_DATA_PREP"
+    ]
+  }
+}
