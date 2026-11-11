@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "european-accessibility-act-wcag-auditor",
+  "title": "European Accessibility Act (EAA) WCAG Auditor",
+  "description": "Vérifie les critères WCAG 2.1 AA obligatoires de l'European Accessibility Act 2025 (contrastes, alt text, ARIA, hiérarchie titres).",
+  "version": "0.1",
+  "dockerfile": "./Dockerfile",
+  "restartOnError": false,
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "meta": {
+    "categories": [
+      "EUROPEAN_COMPLIANCE"
+    ]
+  }
+}

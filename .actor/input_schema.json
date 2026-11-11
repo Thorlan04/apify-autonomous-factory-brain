@@ -1,0 +1,33 @@
+{
+  "title": "Input Schema for European Accessibility Act (EAA) WCAG Auditor",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "targetUrl": {
+      "title": "Targeturl",
+      "type": "string",
+      "description": "Paramètre d'entrée : targetUrl",
+      "default": "https://news.ycombinator.com",
+      "prefill": "https://news.ycombinator.com"
+    },
+    "checkAria": {
+      "title": "Checkaria",
+      "type": "boolean",
+      "description": "Paramètre d'entrée : checkAria",
+      "default": true,
+      "prefill": true
+    },
+    "checkContrast": {
+      "title": "Checkcontrast",
+      "type": "boolean",
+      "description": "Paramètre d'entrée : checkContrast",
+      "default": true,
+      "prefill": true
+    }
+  },
+  "required": [
+    "targetUrl",
+    "checkAria",
+    "checkContrast"
+  ]
+}
