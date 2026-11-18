@@ -7,8 +7,8 @@
     "max_monthly_spend_target_usd": 0.8,
     "max_weekly_creations": 1,
     "max_weekly_maintenances": 1,
-    "last_cycle_timestamp": "2026-11-11T10:28:29.417713+00:00",
-    "total_actors_deployed": 3
+    "last_cycle_timestamp": "2026-11-18T12:16:35.841024+00:00",
+    "total_actors_deployed": 4
   },
   "deployed_actors": [
     {
@@ -31,6 +31,14 @@
       "slug": "european-accessibility-act-wcag-auditor",
       "apify_act_id": "iXbe8KdvKy9IWwyc2",
       "git_branch": "actor/european-accessibility-act-wcag-auditor",
+      "status": "active",
+      "health": "healthy",
+      "last_maintenance_at": null
+    },
+    {
+      "slug": "email-security-spf-dkim-dmarc-checker",
+      "apify_act_id": "RP8OXlb88STAydFrx",
+      "git_branch": "actor/email-security-spf-dkim-dmarc-checker",
       "status": "active",
       "health": "healthy",
       "last_maintenance_at": null
@@ -100,7 +108,8 @@
         "domain": "google.com"
       },
       "pricing_suggestion_usd": 15.0,
-      "status": "pending"
+      "status": "deployed",
+      "deployed_at": "now"
     },
     {
       "id": "idea-05",
