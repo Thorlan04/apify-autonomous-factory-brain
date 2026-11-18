@@ -1,0 +1,19 @@
+{
+  "actorSpecification": 1,
+  "name": "email-security-spf-dkim-dmarc-checker",
+  "title": "B2B Domain SPF DKIM DMARC MX Security Auditor",
+  "description": "Analyse en profondeur les enregistrements DNS d'un domaine d'entreprise pour vérifier la délivrabilité email, l'alignement DMARC et SPF.",
+  "version": "0.1",
+  "dockerfile": "./Dockerfile",
+  "restartOnError": false,
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "meta": {
+    "categories": [
+      "INFRASTRUCTURE_SECURITY"
+    ]
+  }
+}

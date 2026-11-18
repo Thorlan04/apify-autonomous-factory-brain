@@ -1,0 +1,17 @@
+{
+  "title": "Input Schema for B2B Domain SPF DKIM DMARC MX Security Auditor",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "domain": {
+      "title": "Domain",
+      "type": "string",
+      "description": "Paramètre d'entrée : domain",
+      "default": "google.com",
+      "prefill": "google.com"
+    }
+  },
+  "required": [
+    "domain"
+  ]
+}
